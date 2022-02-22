@@ -6,7 +6,7 @@ import ImageGallery from 'components/ImageGallery';
 import Modal from './components/Modal';
 import imagesAPI from './services/images-api';
 import { ToastContainer, toast } from 'react-toastify';
-// import s from './App.module.css';
+import './App.css';
 
 class App extends Component {
   state = {
@@ -34,10 +34,8 @@ class App extends Component {
           loading: true,
         }));
       if (images.length === 0) {
-        // this.setState({ images: [] });
         this.setState({ loading: false });
-        toast.error(`No image with this ${nextName}`);
-        // return;
+        toast.error(`No image with this '${nextName}'`);
         }
     })
     .catch(error => this.setState({ error }))
@@ -45,7 +43,12 @@ class App extends Component {
   }};
 
 handleFormSubmit = name => {
-  this.setState({ name });
+  this.setState({
+    name: name.trim(),
+    page: 1,
+    images: [],
+    error: null,
+  });
 };
 
 toggleModal = () => {
