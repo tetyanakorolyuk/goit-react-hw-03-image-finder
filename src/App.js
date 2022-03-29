@@ -17,6 +17,7 @@ class App extends Component {
     loading: false,
     error: null,
     imageModal: '',
+    total: 0,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -32,6 +33,7 @@ class App extends Component {
       this.setState(prevState => ({
           images: [...prevState.images, ...images],
           loading: true,
+          total: images.length,
         }));
       if (images.length === 0) {
         this.setState({ loading: false });
@@ -71,7 +73,7 @@ toggleModal = () => {
  };
 
 render() {
-  const { images, showModal, loading, imageModal } = this.state;
+  const { images, showModal, loading, imageModal, total } = this.state;
 
 return (
 <>
@@ -79,7 +81,7 @@ return (
 
   {images.length > 0 && (<ImageGallery images={images} onImageClick={this.openModal}/>)}
 
-  {images.length >=12 && <Button onClickButton={this.loadPageMore} />}
+  {total >=12 && <Button onClickButton={this.loadPageMore} /> }
 
   {loading && <Loader />}
 
